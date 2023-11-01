@@ -1,18 +1,27 @@
 import PySimpleGUI as sg
 
-sg.theme('DarkAmber')   # Add a touch of color
+sg.theme('DarkBlue3')   # Add a touch of color
 # All the stuff inside your window.
-layout = [  [sg.Text('Some text on Row 1')],
-            [sg.Text('Enter something on Row 2'), sg.InputText()],
-            [sg.Button('Ok'), sg.Button('Cancel')] ]
+layout = [  
+            [sg.Text('Histórico')],
+            [sg.CBox('Possui histórico de doenças cardiacas?')],
+            [sg.CBox('Possui histórico de doenças respiratórias?')],
+            [sg.CBox('Possui histórico de doenças renais?')],
+            [[sg.Combo(['choice 1', 'choice 2'])]],
+            [sg.Text('Sintomas')],
+            [[sg.Listbox(values=['Listbox 1', 'Listbox 2', 'Listbox 3'], size=(30, 6))], [sg.Listbox(values=['Listbox 1', 'Listbox 2', 'Listbox 3'], size=(30, 6))]],
+            [sg.Button('Ok'), sg.Button('Cancel')],
+         ]
+
+
 
 # Create the Window
-window = sg.Window('Window Title', layout)
+window = sg.Window('Diagnostico Médico', layout)
 # Event Loop to process "events" and get the "values" of the inputs
 while True:
     event, values = window.read()
     if event == sg.WIN_CLOSED or event == 'Cancel': # if user closes window or clicks cancel
         break
-    print('You entered ', values[0])
+    print('Enviado', values[0])
 
 window.close()
