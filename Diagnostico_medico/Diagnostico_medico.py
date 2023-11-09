@@ -1,12 +1,12 @@
 from pyswip import Prolog
 prolog = Prolog()
-prolog.consult("diagnostico_medico2.pl")
+prolog.consult("diagnostico_medico.pl")
 
 # Defina os sintomas inseridos pelo paciente
-sintomas_do_paciente = ["febre", "tosse"]
+sintomas_do_paciente = ["febre", "tosse", "dor_de_cabeca"]
 
 # Crie uma consulta Prolog com variáveis
-consulta = "doenca(D, S), member(S, ["
+consulta = "condicao(D, S), member(S, ["
 consulta += ", ".join(f"'{s}'" for s in sintomas_do_paciente)
 consulta += "])."
 

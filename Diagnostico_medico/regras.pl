@@ -5,17 +5,15 @@ sintoma(sintoma, fraqueza).
 
 tem_sintoma(Paciente, Sintoma) :- sintoma(Sintoma).
 
-doenca_provavel(Paciente, gripe) :- 
-    tem_sintoma(Paciente, febricula),
-    tem_sintoma(Paciente, tosse),
-    tem_sintoma(Paciente, dor_de_cabeca),
-    tem_sintoma(Paciente, fraqueza).
+    sintoma(Paciente, febricula).
+    sintoma(Paciente, tosse).
+    sintoma(Paciente, dor_de_cabeca).
+    sintoma(Paciente, fraqueza).
 
-doenca_provavel(Paciente, colera) :- 
-    tem_sintoma(Paciente, diarreia),
-    tem_sintoma(Paciente, febre),
-    tem_sintoma(Paciente, intestino_sensivel),
-    tem_sintoma(Paciente, fraqueza).
+    sintoma(colera, diarreia).
+    sintoma(colera, febre).
+    sintoma(colera, intestino_sensivel).
+    sintoma(colera, fraqueza).
 
 doenca_provavel(Paciente, pnenomonia) :- 
     tem_sintoma(Paciente, febre),
