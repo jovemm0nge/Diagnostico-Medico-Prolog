@@ -8,7 +8,7 @@ tem_sintoma(Paciente, Sintoma) :- sintoma(Sintoma).
     sintoma(Paciente, febricula).
     sintoma(Paciente, tosse).
     sintoma(Paciente, dor_de_cabeca).
-    sintoma(Paciente, fraqueza).
+    sintoma(Paciente,  ).
 
     sintoma(colera, diarreia).
     sintoma(colera, febre).
@@ -23,12 +23,6 @@ doenca_provavel(Paciente, pnenomonia) :-
     tem_sintoma(Paciente, falta_de_ar),
     tem_sintoma(Paciente, dor_no_peito).
 
-doenca_provavel(Paciente, infarto) :- 
-    tem_sintoma(Paciente, tontura),
-    tem_sintoma(Paciente, dor_no_peito),
-    tem_sintoma(Paciente, dor_no_braco_esquerdo),
-    tem_sintoma(Paciente, suor_excessivo).
-
 doenca_provavel(Paciente, anemia) :- 
     tem_sintoma(Paciente, fraqueza),
     tem_sintoma(Paciente, indisposicao),
@@ -39,7 +33,7 @@ doenca_provavel(Paciente, infeccao_urinaria) :-
     tem_sintoma(Paciente, vontade_urinar_frequente),
     tem_sintoma(Paciente, queimacao_ao_urinar),
     tem_sintoma(Paciente, febre),
-    tem_sintoma(Paciente, urina_turva).
+    tem_sintoma(Paciente,  ).
 
 doenca_provavel(Paciente, pressao_alta) :- 
     tem_sintoma(Paciente, dor_na_nuca),
@@ -61,8 +55,8 @@ doenca_provavel(Paciente, diabetes) :-
     tem_sintoma(Paciente, fome_frequente),
     tem_sintoma(Paciente, sede_constante),
     tem_sintoma(Paciente, fadiga,
-    tem_sintoma(Paciente, mudanca_de_humor),
-    tem_sintoma(Paciente, nausea_vomito),
+    tem_sintoma(Paciente,  ),
+    tem_sintoma(Paciente,  ),
     tem_sintoma(Paciente, vontade_urinar_frequente),
     tem_sintoma(Paciente, perda_de_peso).
 
@@ -72,7 +66,7 @@ doenca_provavel(Paciente, apendicite) :-
     tem_sintoma(Paciente, colica_severa,
     tem_sintoma(Paciente, febre),
     tem_sintoma(Paciente, barriga_inchada),
-    tem_sintoma(Paciente, flatulencia).
+    tem_sintoma(Paciente,  ).
 
 
 doenca_provavel(Paciente, dengue) :- 
@@ -97,8 +91,8 @@ doenca_provavel(Paciente, covid) :-
 doenca_provavel(Paciente, asma) :- 
     tem_sintoma(Paciente, falta_de_ar),
     tem_sintoma(Paciente, dificuldade_respirar),
-    tem_sintoma(Paciente, sensacao_aperto_peito),
-    tem_sintoma(Paciente, chiado_no_peito),
+    tem_sintoma(Paciente,  ),
+    tem_sintoma(Paciente,  ),
     tem_sintoma(Paciente, peito_pesado).
 
 doenca_provavel(Paciente, ascite) :- 

@@ -3,7 +3,7 @@ prolog = Prolog()
 prolog.consult("diagnostico_medico.pl")
 
 # Defina os sintomas inseridos pelo paciente
-sintomas_do_paciente = ["tosse", "febre", "dor_de_garganta"]
+sintomas_do_paciente = ["febre"]
 
 # Crie uma consulta Prolog com variáveis
 consulta = "condicao(D, S), subset(" + str(sintomas_do_paciente) + ", S)."
