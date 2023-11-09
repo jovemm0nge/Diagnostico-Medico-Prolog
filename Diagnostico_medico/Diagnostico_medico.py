@@ -13,7 +13,7 @@ condicoes_possiveis = list(prolog.query(consulta))
 a = []
 # Imprima os resultados
 if condicoes_possiveis:
-    print("Condições médicas possíveis:")
+    print("Diagnósticos médicos possíveis:")
     for soln in condicoes_possiveis:
         a.append(soln["D"])
 else:
