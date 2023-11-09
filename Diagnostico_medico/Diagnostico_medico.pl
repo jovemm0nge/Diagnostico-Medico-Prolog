@@ -3,17 +3,12 @@
 
 %% -> Regras
 
+sintoma(febricula, febre).
+sintoma(tosse_seca, tosse).
+sintoma(dor_leve_cabeca, dor_de_cabeca).
+sintoma(dor_garganta, dor_de_garganta).
 
+condicao(resfriado, [febre, tosse]).
+condicao(gripe, [febre, tosse, dor_de_garganta]).
+condicao(ruim, [tosse, dor_de_garganta]).
 
-
-%% -------
-
-sintoma(febre).
-sintoma(tosse).
-sintoma(espirros).
-sintoma(congestao_nasal).
-sintoma(dor_de_cabeca).
-
-condicao(gripe, [febre, tosse, dor_de_cabeca]).
-condicao(resfriado, [espirros, congestao_nasal, dor_de_cabeca]).
-condicao(alergia, [espirros, congestao_nasal]).

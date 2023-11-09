@@ -3,23 +3,23 @@ prolog = Prolog()
 prolog.consult("diagnostico_medico.pl")
 
 # Defina os sintomas inseridos pelo paciente
-sintomas_do_paciente = ["febre", "tosse", "dor_de_cabeca"]
+sintomas_do_paciente = ["tosse", "febre", "dor_de_garganta"]
 
 # Crie uma consulta Prolog com variáveis
-consulta = "condicao(D, S), member(S, ["
-consulta += ", ".join(f"'{s}'" for s in sintomas_do_paciente)
-consulta += "])."
+consulta = "condicao(D, S), subset(" + str(sintomas_do_paciente) + ", S)."
 
 # Execute a consulta
 condicoes_possiveis = list(prolog.query(consulta))
-
+a = []
 # Imprima os resultados
 if condicoes_possiveis:
     print("Condições médicas possíveis:")
     for soln in condicoes_possiveis:
-        print(soln["D"])
+        a.append(soln["D"])
 else:
     print("Não foi possível fazer um diagnóstico com os sintomas fornecidos.")
+
+print(a)
 
 
 # print(list(prolog.query("sintoma(gripe, X)")) == [{'X': 'febre'}, {'X': 'tosse'}, {'X': 'dor_de_garganta'}])
