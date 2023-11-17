@@ -2,32 +2,36 @@ import PySimpleGUI as sg
 from pyswip import Prolog
 
 prolog = Prolog()
-prolog.consult("diagnostico_medico2.pl")
+prolog.consult("diagnostico_medico.pl")
 
-# Defina os sintomas inseridos pelo paciente
-sintomas_do_paciente = ["febre", "tosse"]
+sintomas = []
+query = list(prolog.query("sintoma(X)"))
 
-# Crie uma consulta Prolog com variáveis
-consulta = "doenca(D, S), member(S, ["
-consulta += ", ".join(f"'{s}'" for s in sintomas_do_paciente)
-consulta += "])."
+for sintoma in query:
+    sintomas.append(sintoma["X"].replace("_", " ").capitalize())
 
-# Execute a consulta
-condicoes_possiveis = list(prolog.query(consulta))
-a = ""
-
-# Imprima os resultados
-if condicoes_possiveis:
-    print("Condições médicas possíveis:")
-    for soln in condicoes_possiveis:
-        a = soln["D"]
-else:
-    print("Não foi possível fazer um diagnóstico com os sintomas fornecidos.")
+# # Defina os sintomas inseridos pelo paciente
+# sintomas_do_paciente = ["febre", "tosse"]
+#
+# # Crie uma consulta Prolog com variáveis
+# consulta = "doenca(D, S), member(S, ["
+# consulta += ", ".join(f"'{s}'" for s in sintomas_do_paciente)
+# consulta += "])."
+#
+# # Execute a consulta
+# condicoes_possiveis = list(prolog.query(consulta))
+# # Imprima os resultados
+# if condicoes_possiveis:
+#     print("Condições médicas possíveis:")
+#     for soln in condicoes_possiveis:
+#         a = soln["D"]
+# else:
+#     print("Não foi possível fazer um diagnóstico com os sintomas fornecidos.")
 
 sg.theme('DarkBlue3')  # Add a touch of color
 # All the stuff inside your window.
 layout = [
-    [sg.Text(a)],
+    [sg.Text('Dados Pessoais')],
     [sg.Text('Sexo'), sg.Radio('Masculino', "Masc", default=True), sg.Radio('Feminino', "Femi")],
     [
         sg.Text('Data de Nascimento'),
@@ -40,9 +44,9 @@ layout = [
     [sg.CBox('Possui histórico de doenças renais?')],
     [[sg.Combo(['choice 1', 'choice 2'])]],
     [sg.Text('Sintomas')],
-    [[sg.Listbox(values=['Listbox 1', 'Listbox 2', 'Listbox 3'], size=(30, 6))],
+    [[sg.Listbox(values=[], size=(30, 6))],
      [sg.VerticalSeparator(pad=20)],
-     [sg.Listbox(values=['Listbox 1', 'Listbox 2', 'Listbox 3'], size=(30, 6))]],
+     [sg.Listbox(values=sintomas, size=(30, 6))]],
 
     [sg.Button('Ok'), sg.Button('Cancel')],
 ]
