@@ -52,9 +52,9 @@ layout = [
         sg.CalendarButton("Selecionar", close_when_date_chosen=True, target="Date", format='%d:%m:%Y', size=(10, 1))
     ],
     [sg.Text('Histórico')],
-    [sg.CBox('Possui histórico de doenças cardiacas?')],
-    [sg.CBox('Possui histórico de doenças respiratórias?')],
-    [sg.CBox('Possui histórico de doenças renais?')],
+    [sg.Text('Possui histórico de doenças cardiacas?'), sg.Radio('Sim', 2, "SimCardiaco",), sg.Radio('Não', 2,"NaoCardicas")],
+    [sg.Text('Possui histórico de doenças respiratórias?'), sg.Radio('Sim', 3, "SimRespiratorias",), sg.Radio('Não', 3,"NaoRespiratorias")],
+    [sg.Text('Possui histórico de doenças renais?'), sg.Radio('Sim', 4, "SimRenais",), sg.Radio('Não', 4,"NaoRenais")],
     [sg.Text('Sintomas')],
     [[sg.Listbox(values=[], size=(30, 6))],
      [sg.VerticalSeparator(pad=20)],
