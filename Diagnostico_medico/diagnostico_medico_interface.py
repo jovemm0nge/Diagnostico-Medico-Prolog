@@ -53,8 +53,18 @@ while True:
     event, values = window.read()
     if event == sg.WIN_CLOSED or event == 'Cancel':
         break
-    elif event == 'Ok':
-        sg.popup('Analisando os dados, foi possível chegar no diagnóstico: ',
+    elif event == 'Enviar':
+        selecao_sintomas = values['-SINTOMAS_LISTA-']
+        array_de_strings_lower = [string.lower() for string in sintomas_paciente]
+        query = list(prolog.query("condicao(D, S), subset(" + str(array_de_strings_lower) + ", S)."))
+        a = []
+        for soln in query:
+            a.append(soln["D"])
+
+        condicoes_formatadas = [condicao.replace('_', ' ').title() for condicao in a]
+        texto = '\n'.join(condicoes_formatadas)
+        print(texto)
+        sg.popup('Analisando os dados, foi possível chegar no diagnóstico: '+texto,
                  title="Resultado do Diagnostico")
         break
 
