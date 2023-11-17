@@ -45,16 +45,16 @@ sg.theme('DarkBlue3')  # Add a touch of color
 # All the stuff inside your window.
 layout = [
     [sg.Text('Dados Pessoais')],
-    [sg.Text('Sexo'), sg.Radio('Masculino', 1, "Masc",), sg.Radio('Feminino', 1,"Femi")],
+    [sg.Text('Sexo'), sg.Radio('Masculino', 1, "Masc", key='-SEXM-'), sg.Radio('Feminino', 1,"Femi", key='-SEXF-')],
     [
         sg.Text('Data de Nascimento'),
         sg.InputText(key='Date', size=(10, 1)),
-        sg.CalendarButton("Selecionar", close_when_date_chosen=True, target="Date", format='%d:%m:%Y', size=(10, 1))
+        sg.CalendarButton("Selecionar", close_when_date_chosen=True, target="Date", format='%d/%m/%Y', size=(10, 1))
     ],
     [sg.Text('Histórico')],
-    [sg.Text('Possui histórico de doenças cardiacas?'), sg.Radio('Sim', 2, "SimCardiaco",), sg.Radio('Não', 2,"NaoCardicas")],
-    [sg.Text('Possui histórico de doenças respiratórias?'), sg.Radio('Sim', 3, "SimRespiratorias",), sg.Radio('Não', 3,"NaoRespiratorias")],
-    [sg.Text('Possui histórico de doenças renais?'), sg.Radio('Sim', 4, "SimRenais",), sg.Radio('Não', 4,"NaoRenais")],
+    [sg.Text('Possui histórico de doenças cardiacas?'), sg.Radio('Sim', 2, "SimCardiaco", key="-SCARD-"), sg.Radio('Não', 2,"NaoCardicas", key="-NCARD-")],
+    [sg.Text('Possui histórico de doenças respiratórias?'), sg.Radio('Sim', 3, "SimRespiratorias", key="-SRESP-"), sg.Radio('Não', 3,"NaoRespiratorias", key="-NRESP-")],
+    [sg.Text('Possui histórico de doenças renais?'), sg.Radio('Sim', 4, "SimRenais", key="-SRENAL-"), sg.Radio('Não', 4,"NaoRenais", key="-NRENAL-")],
     [sg.Text('Sintomas')],
     [[sg.Listbox(values=[], size=(30, 6))],
      [sg.VerticalSeparator(pad=20)],
