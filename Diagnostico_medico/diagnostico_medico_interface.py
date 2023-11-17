@@ -34,16 +34,20 @@ sg.theme('DarkBlue3')  # Add a touch of color
 # All the stuff inside your window.
 layout = [
     [sg.Text('Dados Pessoais')],
+    [sg.Text('--------------------------------------------------------------------------------------')],
     [sg.Text('Sexo'), sg.Radio('Masculino', 1, "Masc", key='-SEXM-'), sg.Radio('Feminino', 1,"Femi", key='-SEXF-')],
     [
         sg.Text('Data de Nascimento'),
         sg.InputText(key='Date', size=(10, 1)),
         sg.CalendarButton("Selecionar", close_when_date_chosen=True, target="Date", format='%d/%m/%Y', size=(10, 1))
     ],
+    [sg.Text('')],
     [sg.Text('Histórico')],
+    [sg.Text('--------------------------------------------------------------------------------------')],
     [sg.Text('Possui histórico de doenças cardiacas?'), sg.Radio('Sim', 2, "SimCardiaco", key="-SCARD-"), sg.Radio('Não', 2,"NaoCardicas", key="-NCARD-")],
     [sg.Text('Possui histórico de doenças respiratórias?'), sg.Radio('Sim', 3, "SimRespiratorias", key="-SRESP-"), sg.Radio('Não', 3,"NaoRespiratorias", key="-NRESP-")],
     [sg.Text('Possui histórico de doenças renais?'), sg.Radio('Sim', 4, "SimRenais", key="-SRENAL-"), sg.Radio('Não', 4,"NaoRenais", key="-NRENAL-")],
+    [sg.Text('')],
     [sg.Text('Sintomas')],
     [
         [sg.Listbox(values=[], size=(30, 6), key='-SINTOMAS_PACIENTE-'),
@@ -54,9 +58,21 @@ layout = [
 
     [sg.Button('Enviar')]
 ]
+    [sg.Text('--------------------------------------------------------------------------------------')],
+    [[sg.Listbox(values=[], size=(30, 6))],
+    [sg.Listbox(values=sintomas, size=(30, 6))]],
+    [sg.Text('--------------------------------------------------------------------------------------')],
+    [sg.Text('')],
+    [sg.Button('Enviar')],
+    [sg.Listbox(values=sintomas,
+                enable_events=True,
+                auto_size_text=True,
+                size=(10, 10),
+                key="Sintomas")],
+    ]
 
 # Create the Window
-window = sg.Window('Diagnostico Médico', layout, size=(650, 650))
+window = sg.Window('Diagnostico Médico', layout, size=(650, 800))
 # Event Loop to process "events" and get the "values" of the inputs
 while True:
     event, values = window.read()
