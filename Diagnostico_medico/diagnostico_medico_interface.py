@@ -4,8 +4,21 @@ from pyswip import Prolog
 prolog = Prolog()
 prolog.consult("diagnostico_medico.pl")
 
-sintomas = []
+sintomas = ["ABC", "BDF", "SDC"]
+selecionados = []
+
 query = list(prolog.query("sintoma(X)"))
+
+data = {
+    'Test1': {
+        'score': 1,
+        'notes': 'Testing 1',
+    },
+    'Test2': {
+        'score': 2,
+        'notes': 'Testing 2',
+    },
+}
 
 for sintoma in query:
     sintomas.append(sintoma["X"].replace("_", " ").capitalize())
@@ -46,9 +59,14 @@ layout = [
     [[sg.Listbox(values=[], size=(30, 6))],
      [sg.VerticalSeparator(pad=20)],
      [sg.Listbox(values=sintomas, size=(30, 6))]],
-
+   
     [sg.Button('Enviar')],
-]
+    [sg.Listbox(values=sintomas,
+                enable_events=True,
+                auto_size_text=True,
+                size=(10, 10),
+                key=8)],
+    ]
 
 # Create the Window
 window = sg.Window('Diagnostico Médico', layout, size=(650, 650))
@@ -57,9 +75,20 @@ while True:
     event, values = window.read()
     # if event == sg.WIN_CLOSED or event == 'Cancel': # if user closes window or clicks cancel
     if event == 'Ok': sg.popup('Analisando os dados, foi possível chegar no diagnóstico: ',
-                               title=("Resultado do Diagnostico"))
+                               title=("Resultado do Diagnostico")
+                               )
     print('Enviado', values[0])
+    print(values)
     break
+
+while True:
+    event, values = window.Read()
+    if not event:
+        break
+    if event == 8:
+        print(values)
+        print(values[8])
+
 
 window.close()
 
