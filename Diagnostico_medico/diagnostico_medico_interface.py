@@ -32,7 +32,7 @@ sg.theme('DarkBlue3')  # Add a touch of color
 # All the stuff inside your window.
 layout = [
     [sg.Text('Dados Pessoais')],
-    [sg.Text('Sexo'), sg.Radio('Masculino', "Masc", default=True), sg.Radio('Feminino', "Femi")],
+    [sg.Text('Sexo'), sg.Radio('Masculino', 1, "Masc",), sg.Radio('Feminino', 1,"Femi")],
     [
         sg.Text('Data de Nascimento'),
         sg.InputText(key='Date', size=(10, 1)),
