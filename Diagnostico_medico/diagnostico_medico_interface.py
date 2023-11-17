@@ -42,7 +42,6 @@ layout = [
     [sg.CBox('Possui histórico de doenças cardiacas?')],
     [sg.CBox('Possui histórico de doenças respiratórias?')],
     [sg.CBox('Possui histórico de doenças renais?')],
-    [[sg.Combo(['choice 1', 'choice 2'])]],
     [sg.Text('Sintomas')],
     [[sg.Listbox(values=[], size=(30, 6))],
      [sg.VerticalSeparator(pad=20)],
