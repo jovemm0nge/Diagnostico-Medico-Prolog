@@ -8,80 +8,57 @@ sintomas = []
 sintomas_paciente = []
 query = list(prolog.query("sintoma(X)"))
 
-
 for sintoma in query:
     sintomas.append(sintoma["X"].replace("_", " ").capitalize())
-
-# # Defina os sintomas inseridos pelo paciente
-# sintomas_do_paciente = ["febre", "tosse"]
-#
-# # Crie uma consulta Prolog com variáveis
-# consulta = "doenca(D, S), member(S, ["
-# consulta += ", ".join(f"'{s}'" for s in sintomas_do_paciente)
-# consulta += "])."
-#
-# # Execute a consulta
-# condicoes_possiveis = list(prolog.query(consulta))
-# # Imprima os resultados
-# if condicoes_possiveis:
-#     print("Condições médicas possíveis:")
-#     for soln in condicoes_possiveis:
-#         a = soln["D"]
-# else:
-#     print("Não foi possível fazer um diagnóstico com os sintomas fornecidos.")
 
 sg.theme('DarkBlue3')  # Add a touch of color
 # All the stuff inside your window.
 layout = [
-    [sg.Text('Dados Pessoais')],
-    [sg.Text('--------------------------------------------------------------------------------------')],
+    # [sg.Image('PySimpleGUI_Logo.png', expand_x=True, expand_y=True, size=(10, 10))],
+    [sg.Text('Dados Pessoais', font=180)],
+    [sg.Text('-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------')],
     [sg.Text('Sexo'), sg.Radio('Masculino', 1, "Masc", key='-SEXM-'), sg.Radio('Feminino', 1,"Femi", key='-SEXF-')],
     [
         sg.Text('Data de Nascimento'),
-        sg.InputText(key='Date', size=(10, 1)),
-        sg.CalendarButton("Selecionar", close_when_date_chosen=True, target="Date", format='%d/%m/%Y', size=(10, 1))
+        sg.InputText(key='Date', size=(10, 1), disabled=True),
+        sg.CalendarButton("📆", close_when_date_chosen=True, target="Date", format='%d/%m/%Y', font=4)
     ],
     [sg.Text('')],
-    [sg.Text('Histórico')],
-    [sg.Text('--------------------------------------------------------------------------------------')],
+    [sg.Text('Histórico', font=180)],
+    [sg.Text('-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------')],
     [sg.Text('Possui histórico de doenças cardiacas?'), sg.Radio('Sim', 2, "SimCardiaco", key="-SCARD-"), sg.Radio('Não', 2,"NaoCardicas", key="-NCARD-")],
     [sg.Text('Possui histórico de doenças respiratórias?'), sg.Radio('Sim', 3, "SimRespiratorias", key="-SRESP-"), sg.Radio('Não', 3,"NaoRespiratorias", key="-NRESP-")],
     [sg.Text('Possui histórico de doenças renais?'), sg.Radio('Sim', 4, "SimRenais", key="-SRENAL-"), sg.Radio('Não', 4,"NaoRenais", key="-NRENAL-")],
     [sg.Text('')],
-    [sg.Text('Sintomas')],
+
+    [sg.Text('Sintomas', font=180)],
+    [sg.Text('-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------')],
     [
-        [sg.Listbox(values=[], size=(30, 6), key='-SINTOMAS_PACIENTE-'),
-         sg.Button('Adicionar'),
-         sg.Listbox(values=sintomas, size=(30, 6), key='-SINTOMAS_LISTA-')
+        [sg.Listbox(values=[], size=(40, 10), key='-SINTOMAS_PACIENTE-'),
+
+         sg.Button('<'),
+         sg.Button('>'),
+
+         sg.Listbox(values=sintomas, size=(40, 10), key='-SINTOMAS_LISTA-')
          ]
     ],
-
-    [sg.Button('Enviar')]
-]
-    [sg.Text('--------------------------------------------------------------------------------------')],
-    [[sg.Listbox(values=[], size=(30, 6))],
-    [sg.Listbox(values=sintomas, size=(30, 6))]],
-    [sg.Text('--------------------------------------------------------------------------------------')],
     [sg.Text('')],
-    [sg.Button('Enviar')],
-    [sg.Listbox(values=sintomas,
-                enable_events=True,
-                auto_size_text=True,
-                size=(10, 10),
-                key="Sintomas")],
-    ]
+    [sg.Button('Enviar', font=180, size=(200))]
+]
 
 # Create the Window
-window = sg.Window('Diagnostico Médico', layout, size=(650, 800))
+window = sg.Window('Diagnostico Médico', layout, size=(650, 620))
 # Event Loop to process "events" and get the "values" of the inputs
 while True:
     event, values = window.read()
-    # if event == sg.WIN_CLOSED or event == 'Cancel': # if user closes window or clicks cancel
-    if event == 'Ok':
+    if event == sg.WIN_CLOSED or event == 'Cancel':
+        break
+    elif event == 'Ok':
         sg.popup('Analisando os dados, foi possível chegar no diagnóstico: ',
                  title="Resultado do Diagnostico")
         break
-    elif event == 'Adicionar':
+
+    elif event == '<':
         selecao_sintomas = values['-SINTOMAS_LISTA-']
         if selecao_sintomas:
             for sintoma in selecao_sintomas:
@@ -90,13 +67,18 @@ while True:
 
             window['-SINTOMAS_PACIENTE-'].update(values=sintomas_paciente)
 
+    elif event == '>':
+        selecao_sintomas = values['-SINTOMAS_PACIENTE-']
+        if selecao_sintomas:
+            sintomas_paciente.pop(sintomas_paciente.index(selecao_sintomas[0]))
+
+            window['-SINTOMAS_PACIENTE-'].update(values=sintomas_paciente)
+
 while True:
     event, values = window.Read()
     if not event:
         break
     if event == 8:
-
         print(values.Sintomas)
-
 
 window.close()
