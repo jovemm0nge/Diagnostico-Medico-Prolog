@@ -9,16 +9,6 @@ selecionados = []
 
 query = list(prolog.query("sintoma(X)"))
 
-data = {
-    'Test1': {
-        'score': 1,
-        'notes': 'Testing 1',
-    },
-    'Test2': {
-        'score': 2,
-        'notes': 'Testing 2',
-    },
-}
 
 for sintoma in query:
     sintomas.append(sintoma["X"].replace("_", " ").capitalize())
@@ -65,7 +55,7 @@ layout = [
                 enable_events=True,
                 auto_size_text=True,
                 size=(10, 10),
-                key=8)],
+                key="Sintomas")],
     ]
 
 # Create the Window
@@ -86,8 +76,8 @@ while True:
     if not event:
         break
     if event == 8:
-        print(values)
-        print(values[8])
+
+        print(values.Sintomas)
 
 
 window.close()
