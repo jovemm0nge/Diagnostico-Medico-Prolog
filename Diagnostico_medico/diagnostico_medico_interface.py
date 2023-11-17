@@ -48,7 +48,7 @@ layout = [
      [sg.VerticalSeparator(pad=20)],
      [sg.Listbox(values=sintomas, size=(30, 6))]],
 
-    [sg.Button('Ok'), sg.Button('Cancel')],
+    [sg.Button('Enviar')],
 ]
 
 # Create the Window
