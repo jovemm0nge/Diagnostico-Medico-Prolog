@@ -32,7 +32,7 @@ sg.theme('DarkBlue3')  # Add a touch of color
 # All the stuff inside your window.
 layout = [
     [sg.Text('Dados Pessoais')],
-    [sg.Text('Sexo'), sg.Radio('Masculino', "Masc", default=True), sg.Radio('Feminino', "Femi")],
+    [sg.Text('Sexo'), sg.Radio('Masculino', 1, "Masc",), sg.Radio('Feminino', 1,"Femi")],
     [
         sg.Text('Data de Nascimento'),
         sg.InputText(key='Date', size=(10, 1)),
@@ -42,7 +42,6 @@ layout = [
     [sg.CBox('Possui histórico de doenças cardiacas?')],
     [sg.CBox('Possui histórico de doenças respiratórias?')],
     [sg.CBox('Possui histórico de doenças renais?')],
-    [[sg.Combo(['choice 1', 'choice 2'])]],
     [sg.Text('Sintomas')],
     [[sg.Listbox(values=[], size=(30, 6))],
      [sg.VerticalSeparator(pad=20)],
