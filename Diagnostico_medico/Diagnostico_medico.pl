@@ -22,8 +22,7 @@ sintoma(bracos_dormentes).
 sintoma(indigestao).
 sintoma(asia).
 sintoma(dor_estomago).
-sintoma(homem, disfuncao_eretil).
-sintoma(homem, sangue_no_semen).
+
 
 condicao(gripe, [febre, tosse, dor_de_cabeca, dor_no_corpo, falta_de_ar]).
 condicao(amigdalite, [dor_de_garganta, febre, dor_no_corpo, inchaco, dificuldade_de_engolir]).
