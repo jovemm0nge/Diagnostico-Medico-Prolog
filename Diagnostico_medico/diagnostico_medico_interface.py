@@ -76,6 +76,9 @@ while True:
             else:
                 array_de_strings_lower = [string.lower() for string in sintomas_paciente]
                 query = list(prolog.query("condicao(D, S), subset(" + str(array_de_strings_lower) + ", S)."))
+                if not query:
+                    sg.popup('Base não encontrou nenhum diagnóstico, procure um hospital', title='Aviso')
+
                 a = []
                 for soln in query:
                     a.append(soln["D"])
