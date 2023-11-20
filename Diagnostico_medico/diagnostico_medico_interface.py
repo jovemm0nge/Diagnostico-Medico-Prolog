@@ -9,7 +9,7 @@ sintomas_paciente = []
 query = list(prolog.query("sintoma(X)"))
 
 for sintoma in query:
-    sintomas.append(sintoma["X"].replace("_", " ").capitalize())
+    sintomas.append(sintoma["X"].replace("_", "_").capitalize())
 
 sg.theme('DarkBlue3')  # Add a touch of color
 # All the stuff inside your window.
@@ -20,8 +20,8 @@ layout = [
     [sg.Text('Sexo'), sg.Radio('Masculino', 1, "Masc", key='-SEXM-'), sg.Radio('Feminino', 1,"Femi", key='-SEXF-')],
     [
         sg.Text('Data de Nascimento'),
-        sg.InputText(key='Date', size=(10, 1), disabled=True),
-        sg.CalendarButton("📆", close_when_date_chosen=True, target="Date", format='%d/%m/%Y', font=4)
+        sg.InputText(key='-DATE-', size=(10, 1), disabled=True),
+        sg.CalendarButton("📆", close_when_date_chosen=True, target="-DATE-", format='%d/%m/%Y', font=4)
     ],
     [sg.Text('')],
     [sg.Text('Histórico', font=180)],
@@ -48,25 +48,43 @@ layout = [
 
 # Create the Window
 window = sg.Window('Diagnostico Médico', layout, size=(650, 620))
+
 # Event Loop to process "events" and get the "values" of the inputs
 while True:
     event, values = window.read()
     if event == sg.WIN_CLOSED or event == 'Cancel':
         break
-    elif event == 'Enviar':
-        selecao_sintomas = values['-SINTOMAS_LISTA-']
-        array_de_strings_lower = [string.lower() for string in sintomas_paciente]
-        query = list(prolog.query("condicao(D, S), subset(" + str(array_de_strings_lower) + ", S)."))
-        a = []
-        for soln in query:
-            a.append(soln["D"])
+    DATA = values['-DATE-']
+    print(DATA)
 
-        condicoes_formatadas = [condicao.replace('_', ' ').title() for condicao in a]
-        texto = '\n'.join(condicoes_formatadas)
-        print(texto)
-        sg.popup('Analisando os dados, foi possível chegar no diagnóstico: '+texto,
-                 title="Resultado do Diagnostico")
+    if DATA == '':
+        print('False')
+    elif DATA != '':
+        print('True')
+
+    if event == sg.WIN_CLOSED:
         break
+
+    elif event == 'Enviar':
+        if DATA == '':
+            sg.popup('Preencha o campo DATA antes de enviar.', title='Aviso')
+        else:
+            selecao_sintomas = values['-SINTOMAS_LISTA-']
+
+            if not selecao_sintomas:
+                sg.popup('Selecione pelo menos um sintoma antes de enviar.', title='Aviso')
+            else:
+                array_de_strings_lower = [string.lower() for string in sintomas_paciente]
+                query = list(prolog.query("condicao(D, S), subset(" + str(array_de_strings_lower) + ", S)."))
+                a = []
+                for soln in query:
+                    a.append(soln["D"])
+
+                condicoes_formatadas = [condicao.replace('_', '_').title() for condicao in a]
+                texto = '\n'.join(condicoes_formatadas)
+                print(texto)
+                sg.popup('Analisando os dados, foi possível chegar no diagnóstico: ' + texto,
+                         title="Resultado do Diagnóstico")
 
     elif event == '<':
         selecao_sintomas = values['-SINTOMAS_LISTA-']
@@ -74,6 +92,13 @@ while True:
             for sintoma in selecao_sintomas:
                 if sintoma not in sintomas_paciente:
                     sintomas_paciente.append(sintoma)
+
+            window['-SINTOMAS_PACIENTE-'].update(values=sintomas_paciente)
+
+    elif event == '>':
+        selecao_sintomas = values['-SINTOMAS_PACIENTE-']
+        if selecao_sintomas:
+            sintomas_paciente.pop(sintomas_paciente.index(selecao_sintomas[0]))
 
             window['-SINTOMAS_PACIENTE-'].update(values=sintomas_paciente)
 
