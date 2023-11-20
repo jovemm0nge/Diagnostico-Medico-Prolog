@@ -50,6 +50,7 @@ layout = [
 window = sg.Window('Diagnostico Médico', layout, size=(650, 620))
 
 # Event Loop to process "events" and get the "values" of the inputs
+selecao_sintoma = []
 while True:
     event, values = window.read()
     if event == sg.WIN_CLOSED or event == 'Cancel':
@@ -69,25 +70,25 @@ while True:
         if DATA == '':
             sg.popup('Preencha o campo DATA antes de enviar.', title='Aviso')
         else:
-            selecao_sintomas = values['-SINTOMAS_LISTA-']
+            # selecao_sintomas = selecao_sintoma
 
-            if not selecao_sintomas:
+            if not selecao_sintoma:
                 sg.popup('Selecione pelo menos um sintoma antes de enviar.', title='Aviso')
             else:
                 array_de_strings_lower = [string.lower() for string in sintomas_paciente]
                 query = list(prolog.query("condicao(D, S), subset(" + str(array_de_strings_lower) + ", S)."))
                 if not query:
                     sg.popup('Base não encontrou nenhum diagnóstico, procure um hospital', title='Aviso')
+                else:
+                    a = []
+                    for soln in query:
+                        a.append(soln["D"])
 
-                a = []
-                for soln in query:
-                    a.append(soln["D"])
-
-                condicoes_formatadas = [condicao.replace('_', '_').title() for condicao in a]
-                texto = '\n'.join(condicoes_formatadas)
-                print(texto)
-                sg.popup('Analisando os dados, foi possível chegar no diagnóstico: ' + texto,
-                         title="Resultado do Diagnóstico")
+                    condicoes_formatadas = [condicao.replace('_', '_').title() for condicao in a]
+                    texto = '\n'.join(condicoes_formatadas)
+                    print(texto)
+                    sg.popup('Analisando os dados, foi possível chegar no diagnóstico: ' + texto,
+                             title="Resultado do Diagnóstico")
 
     elif event == '<':
         selecao_sintomas = values['-SINTOMAS_LISTA-']
@@ -95,19 +96,21 @@ while True:
             for sintoma in selecao_sintomas:
                 if sintoma not in sintomas_paciente:
                     sintomas_paciente.append(sintoma)
+                    selecao_sintoma.append(sintoma)
 
             window['-SINTOMAS_PACIENTE-'].update(values=sintomas_paciente)
+
+    # elif event == '>':
+    #     selecao_sintomas = values['-SINTOMAS_PACIENTE-']
+    #     if selecao_sintomas:
+    #         sintomas_paciente.pop(sintomas_paciente.index(selecao_sintomas[0]))
+    #
+    #         window['-SINTOMAS_PACIENTE-'].update(values=sintomas_paciente)
 
     elif event == '>':
         selecao_sintomas = values['-SINTOMAS_PACIENTE-']
         if selecao_sintomas:
-            sintomas_paciente.pop(sintomas_paciente.index(selecao_sintomas[0]))
-
-            window['-SINTOMAS_PACIENTE-'].update(values=sintomas_paciente)
-
-    elif event == '>':
-        selecao_sintomas = values['-SINTOMAS_PACIENTE-']
-        if selecao_sintomas:
+            selecao_sintoma.pop(sintomas_paciente.index(selecao_sintomas[0]))
             sintomas_paciente.pop(sintomas_paciente.index(selecao_sintomas[0]))
 
             window['-SINTOMAS_PACIENTE-'].update(values=sintomas_paciente)
